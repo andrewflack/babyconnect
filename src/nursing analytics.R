@@ -44,9 +44,16 @@ df %>%
   labs(x = NULL, y = "Ounces", title = "Feeding Metrics Over Time", subtitle = "Measured and derived metrics to track Mom & Baby's progress") +
   theme(legend.title = element_blank())
 
+ggsave("plots/feeding_metrics.png")
+
 df %>% 
   filter(date < today()) %>% 
   ggplot(aes(x = date, y = nursing_fraction)) + 
   geom_point() + 
   geom_smooth() + 
-  theme_minimal()
+  theme_minimal() +
+  labs(x = NULL, y = "Nursing Fraction", title = "Fraction of Daily Required Intake from Nursing") +
+  theme(legend.title = element_blank())
+
+ggsave("plots/nursing_fraction.png")
+
