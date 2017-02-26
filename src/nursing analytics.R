@@ -21,14 +21,17 @@ df <- df %>%
   ungroup() %>% 
   select(-tmp)
 
-# add variables of interest
-df <- df %>% mutate(daily_intake = (wt_est*2.5), 
-                    nursing = daily_intake - ttl_btl, 
-                    nursing_fraction = nursing/daily_intake, 
-                    production = ttl_pmp + nursing)
+# calculate daily intake
+df <- df %>% mutate(daily_intake = (wt_est*2.5))
 
 # hold daily_intake steady at 24.5 (sd 2.75)
 df$daily_intake[df$daily_intake >= 24.5] <- 24.5
+
+# add variables of interest
+df <- df %>% mutate(
+  nursing = daily_intake - ttl_btl, 
+  nursing_fraction = nursing/daily_intake, 
+  production = ttl_pmp + nursing)
 
 #### Plots ####
 
